@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAP.Core.DatastoreORM", "TAP.Core.DatastoreORM\TAP.Core.DatastoreORM.csproj", "{660D0FD7-C072-4892-AB4B-582DF1EF3E1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAP.Core.DatastoreORM.Test", "TAP.Core.DatastoreORM.Test\TAP.Core.DatastoreORM.Test.csproj", "{16F0E7AC-0263-4257-88F3-AFF63D11A1BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{660D0FD7-C072-4892-AB4B-582DF1EF3E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{660D0FD7-C072-4892-AB4B-582DF1EF3E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{660D0FD7-C072-4892-AB4B-582DF1EF3E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{660D0FD7-C072-4892-AB4B-582DF1EF3E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16F0E7AC-0263-4257-88F3-AFF63D11A1BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16F0E7AC-0263-4257-88F3-AFF63D11A1BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16F0E7AC-0263-4257-88F3-AFF63D11A1BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16F0E7AC-0263-4257-88F3-AFF63D11A1BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A14B71E0-2436-4452-875C-BE9DCAB44078}
+	EndGlobalSection
+EndGlobal
