@@ -16,16 +16,21 @@ namespace TAP.Core.DatastoreORM.Repository
     public abstract class DatastoreRepository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : BaseDAO
     {
 
-        protected string _kind;
+        protected static string _kind;
         protected readonly DatastoreDb _db;
-        private readonly TypesMetadataLoader _typesMetadataLoader;
-        private KindKeyInfo _kindKeyInfo;
+        private static TypesMetadataLoader _typesMetadataLoader;
+        private static KindKeyInfo _kindKeyInfo;
 
         protected DatastoreRepository(string projectId)
         {
-            LoadKindInfo();
+            if (_kindKeyInfo == null)
+                LoadKindInfo();
+
             _db = DatastoreDb.Create(projectId);
-            _typesMetadataLoader = new TypesMetadataLoader(typeof(TEntity));
+
+            if (_typesMetadataLoader == null)
+                _typesMetadataLoader = new TypesMetadataLoader(typeof(TEntity));
+
         }
         private void LoadKindInfo()
         {

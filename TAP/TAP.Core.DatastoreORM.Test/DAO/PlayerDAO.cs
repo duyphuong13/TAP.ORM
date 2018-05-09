@@ -30,6 +30,9 @@ namespace TAP.Core.DatastoreORM.Test.DAO
         public string Address { get; set; }
         public string ZipCode { get; set; }
         public string CountryCode { get; set; }
+
+        [ExcludeIndex]
+        public string Description { get; set; }
     }
 
     public class PlayerSolider
