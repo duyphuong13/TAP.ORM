@@ -7,6 +7,11 @@ namespace TAP.Core.DatastoreORM.Test.DAO
     {
         [KindKey(false)]
         public string CountryCode { get; set; }
+
         public string Name { get; set; }
+
+
+        [DbFieldName("description")]
+        public string Description { get; set; }
     }
 }

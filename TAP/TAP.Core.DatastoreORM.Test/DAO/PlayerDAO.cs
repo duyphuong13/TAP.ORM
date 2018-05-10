@@ -21,7 +21,9 @@ namespace TAP.Core.DatastoreORM.Test.DAO
         public PlayerStatus PlayerStatus { get; set; }
         public List<PlayerSolider> PlayerSoliders { get; set; }
 
+        
         [ExcludeIndex]
+        [DbFieldName("description")]
         public string Description { get; set; }
     }
 

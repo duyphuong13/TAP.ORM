@@ -22,15 +22,28 @@ namespace TAP.Core.DatastoreORM.Test
 
         public async Task<string> AddCountry()
         {
+            var randomizer = new Random();
             return await _countryRepository.InsertAsync(new CountryDAO
             {
-                CountryCode = "VN",
-                Name = "Vietnam"
+                CountryCode = randomizer.Next().ToString(),
+                Name = "United Kingdom",
+                Description = "test description"
             });
         }
         public Task<CountryDAO> GetCountry(string countryCode)
         {
             return _countryRepository.GetByIdAsync(countryCode);
+        }
+
+
+        public Task<CountryDAO[]> GetCountriesByIds(params string[] ids)
+        {
+            return _countryRepository.GetByIdsAsync(ids);
+        }
+
+        public Task<CountryDAO[]> GetAllCountries(int limit = int.MaxValue)
+        {
+            return _countryRepository.GetAllAsync(limit);
         }
 
         public async Task<long> AddPlayer()

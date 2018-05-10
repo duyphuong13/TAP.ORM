@@ -24,6 +24,17 @@ namespace TAP.Core.DatastoreORM
     {
     }
 
+    public class DbFieldNameAttribute : Attribute
+    {
+        public string Name { get; set; }
+
+        public DbFieldNameAttribute(string name)
+        {
+            Name = name;
+        }
+    }
+
+
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class InheritedEntityTypeAttribute : Attribute
     {

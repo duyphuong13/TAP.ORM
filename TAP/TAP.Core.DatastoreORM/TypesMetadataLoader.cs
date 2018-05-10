@@ -107,10 +107,25 @@ namespace TAP.Core.DatastoreORM
                     Get = BuildMethodAccessorWithReturnValue(property.GetGetMethod()),
                     CustomAttributes = property.CustomAttributes
                 };
-                propertiesAccessors.Add(property.Name, accessors);
+
+                var propertyName = property.Name;
+                var customField = GetCustomDbFieldName(property);
+
+                if (!string.IsNullOrEmpty(customField))
+                {
+                    propertyName = customField;
+                }
+
+                propertiesAccessors.Add(propertyName, accessors);
             }
 
             return propertiesAccessors;
+        }
+
+        private static string GetCustomDbFieldName(PropertyInfo propertyInfo)
+        {
+            var dbFieldNameAttribute = propertyInfo.GetCustomAttributes(typeof(DbFieldNameAttribute), false).Cast<DbFieldNameAttribute>().FirstOrDefault();
+            return dbFieldNameAttribute?.Name;
         }
 
         public static string GetInheritedType(InheritedEntityTypeAttribute inheritedEntityTypeAttribute, string baseEntityName = null)

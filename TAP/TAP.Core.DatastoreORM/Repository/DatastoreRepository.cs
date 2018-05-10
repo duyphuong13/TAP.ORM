@@ -10,6 +10,7 @@ using Google.Cloud.Datastore.V1;
 using Google.Protobuf.WellKnownTypes;
 using Type = System.Type;
 using Value = Google.Cloud.Datastore.V1.Value;
+using System.Text;
 
 namespace TAP.Core.DatastoreORM.Repository
 {
@@ -207,7 +208,7 @@ namespace TAP.Core.DatastoreORM.Repository
                     foreach (var property in classMetadata.PropertiesInfo)
                     {
                         var val = property.Value.Get(obj);
-                        value.EntityValue.Properties.Add(property.Key, CreateValueFromObject(val, IsExcludeColumnFromIndex(property.Value.CustomAttributes))); // TODO: Should call ToEntity - but should have depth consideration in regarding to the key
+                        value.EntityValue.Properties.Add(property.Key, IsExcludeColumnFromIndex(property.Value.CustomAttributes)); // TODO: Should call ToEntity - but should have depth consideration in regarding to the key
                     }
                 }
             }
@@ -337,12 +338,56 @@ namespace TAP.Core.DatastoreORM.Repository
             return res.ToArray();
         }
 
+        public async Task<TEntity[]> GetByIdsAsync(params TKey[] ids)
+        {
+            var keys = ids.Select(BuildKey);
+            var entities = await _db.LookupAsync(keys);
+
+            return entities.Where(x => x != null).Select(BuildDalEntity).ToArray();
+        }
         public async Task<TEntity> GetByIdAsync(TKey id)
         {
             var key = BuildKey(id);
             var entity = await _db.LookupAsync(key);
             return entity != null ? BuildDalEntity(entity) : null;
         }
+
+        public async Task<TEntity[]> GetAllAsync(int limit = 1000)
+        {
+            var res = await _db.RunQueryAsync(new Query(_kind)
+            {
+                Limit = limit
+            });
+
+            return res.Entities.Select(BuildDalEntity).ToArray();
+
+            //var count = res.Entities.Count();
+            ////UTF8Encoding encoder = new UTF8Encoding();
+            ////encoder.GetString(res.EndCursor);
+
+            //Query query = new Query("__Stat_Kind__")
+            //{
+
+            //    //Filter = new Filter
+            //    //{
+            //    //    PropertyFilter = new PropertyFilter
+            //    //    {
+            //    //        Op = PropertyFilter.Types.Operator.Equal,
+            //    //        Value = "API-Version",
+            //    //        Property = new PropertyReference("kind_name")
+            //    //    }
+            //    //}
+            //};
+
+            //var data = await _db.RunQueryAsync(query);
+
+
+            //query.addFilter("kind_name", FilterOperator.EQUAL, kind);
+            //Entity entityStat = datastore.prepare(query).asSingleEntity();
+            //Long totalEntities = (Long)entityStat.getProperty("count");
+        }
+
+
 
         public async Task DeleteAsync(TKey id)
         {
